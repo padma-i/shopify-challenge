@@ -1,2 +1,6 @@
 # shopify-challenge
-These are the challenges for the Shopify data science intern position. The two questions are uploaded as 2 separate  
+My name is Padma Iyengar, and I am applying for the data science intern position at Shopify for the Winter 2021. I have completed the challenges offered by Shopify. 
+
+Question 1 was completed using Python, and has been uploaded as a Jupyter Notebook. Question 2 was completed using SQL, and has been uploaded as a PDF. The queries can be copied as needed. In both questions, I tried to provide my thought process as well as my final answers.
+
+Thank you for your time and for the opportunity to apply.
