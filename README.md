@@ -3,6 +3,6 @@ My name is Padma Iyengar, and I am applying for the data science intern position
 
 Question 1 was completed using Python, and has been uploaded as a Jupyter Notebook. 
 Question 2 was completed using SQL, and has been uploaded as a PDF. The queries can be copied as needed. 
-In both questions, I tried to provide my thought process as well as my final answers.
+In both questions, I provided my final answers along with my thought process.
 
 Thank you for your time and for the opportunity to apply.
