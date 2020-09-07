@@ -1,0 +1,14 @@
+﻿Padma Iyengar
+Shopify Challenge - Question 2
+
+1. How many orders were shipped by Speedy Express in total?
+select count(*) from Orders where ShipperID=(SELECT ShipperID FROM [Shippers] where ShipperName="Speedy Express");
+Output: 54
+
+2. What is the last name of the employee with the most orders?
+Select lastName from Employees where EmployeeID=(select EmployeeID from Orders group by EmployeeID order by count(*) DESC limit 1); 
+Output: Peacock
+
+3. What product was ordered the most by customers in Germany?
+SELECT ProductName from Products where ProductID=(SELECT ProductID from OrderDetails where OrderID in (SELECT OrderID FROM [Orders] where CustomerID in (SELECT CustomerID FROM [Customers] where Country="Germany")) group by ProductID order by sum(Quantity) DESC limit 1);
+Output: Boston Crab Meat
