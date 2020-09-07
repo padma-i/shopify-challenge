@@ -1,0 +1,38 @@
+﻿Padma Iyengar
+Winter 2021 Data Science Intern Challenge 
+
+
+Please complete the following questions, and provide your thought process/work. You can attach your work in a text file, link, etc. on the application page. Please ensure answers are easily visible for reviewers!
+Shopify Challenge - Question 2
+Final queries and numerical outputs are bolded. Thought process is shown by listing steps and subqueries.
+
+
+1. How many orders were shipped by Speedy Express in total?
+First, the ShipperID for Speedy Express needs to be found, using the Shippers table. The subquery is: 
+SELECT ShipperID FROM [Shippers] where ShipperName="Speedy Express";
+Now, the number of orders shipped by Speedy Express needs to be counted. Nesting the previous query, one gets the final query: 
+select count(*) from Orders where ShipperID=(SELECT ShipperID FROM [Shippers] where ShipperName="Speedy Express");
+Output: 54
+54 orders were shipped by Speedy Express.
+
+
+2. What is the last name of the employee with the most orders?
+The last name of the employee with the highest number of orders needs to be found. However, the Orders table only has EmployeeID (not the last name). Regardless, the first step is to find the EmployeeID with the maximum orders. This can we done with the subquery: 
+select EmployeeID from Orders group by EmployeeID order by count(*) DESC limit 1; 
+Now, it can be matched with an Employee’s last name using the Employees table. This has a final query: 
+Select lastName from Employees where EmployeeID=(select EmployeeID from Orders group by EmployeeID order by count(*) DESC limit 1); 
+Output: Peacock
+The employee with the last name of Peacock has the most orders.
+
+
+3. What product was ordered the most by customers in Germany?
+First, the customers have to be restricted to those living in Germany. This can be done with this subquery:
+        SELECT CustomerID FROM [Customers] where Country="Germany"
+Then, the orders have to limited to those customers in Germany, through this query:
+SELECT OrderID FROM [Orders] where CustomerID in (SELECT CustomerID FROM [Customers] where Country="Germany")
+Now, the productID of the most ordered product has to be found, so that it can be matched to a name. First, limit the orders to those of customers in Germany (found in previous query), and then group by ProductID to get an aggregate, and select the one with the highest. This can be done through the query: 
+SELECT ProductID from OrderDetails where OrderID in (SELECT OrderID FROM [Orders] where CustomerID in (SELECT CustomerID FROM [Customers] where Country="Germany")) group by ProductID order by sum(Quantity) DESC limit 1
+Finally, the ProductID of the most bought item has to be matched to its name using the products table. Putting everything together, this results in the query:
+SELECT ProductName from Products where ProductID=(SELECT ProductID from OrderDetails where OrderID in (SELECT OrderID FROM [Orders] where CustomerID in (SELECT CustomerID FROM [Customers] where Country="Germany")) group by ProductID order by sum(Quantity) DESC limit 1);
+Output: Boston Crab Meat
+The most ordered product by customers in Germany was Boston Crab Meet.
